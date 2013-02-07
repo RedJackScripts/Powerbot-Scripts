@@ -12,12 +12,14 @@ import org.powerbot.game.api.methods.tab.Inventory;
 import org.powerbot.game.api.methods.tab.Skills;
 import org.powerbot.game.api.methods.widget.Bank;
 import org.powerbot.game.api.methods.widget.Camera;
+import org.powerbot.game.api.methods.widget.DepositBox;
 import org.powerbot.game.api.util.*;
 import org.powerbot.game.api.util.Timer;
 import org.powerbot.game.api.wrappers.Area;
 import org.powerbot.game.api.wrappers.Tile;
 import org.powerbot.game.api.wrappers.interactive.Player;
 import org.powerbot.game.api.wrappers.map.Path;
+import org.powerbot.game.api.wrappers.node.Item;
 import org.powerbot.game.api.wrappers.node.SceneObject;
 import source.methods;
 import source.skillinfo;
@@ -29,6 +31,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -93,6 +96,7 @@ public class RedJackJewelry extends ActiveScript implements PaintListener {
 
         skillinfo.startExp = Skills.getExperience(Skills.CRAFTING);
         skillinfo.startTime = System.currentTimeMillis();
+        skillinfo.startLevel = Skills.getRealLevel(Skills.CRAFTING);
     }
 
     @Override
@@ -197,6 +201,7 @@ public class RedJackJewelry extends ActiveScript implements PaintListener {
     private final Font font2 = new Font("Tahoma", 0, 14);
 
     public void onRepaint(Graphics g1) {
+        skillinfo.level = Skills.getRealLevel(Skills.CRAFTING);
         skillinfo.runTime = System.currentTimeMillis() - skillinfo.startTime;
         skillinfo.expGained = Skills.getExperience(Skills.CRAFTING) - skillinfo.startExp;
         skillinfo.expTNL = Skills.getExperienceToLevel(Skills.CRAFTING, skillinfo.level + 1);
@@ -252,4 +257,7 @@ public class RedJackJewelry extends ActiveScript implements PaintListener {
         }
         return res;
     }
+
+
+
 }
